@@ -1,0 +1,1 @@
+docker cp /home/admin/wordpresto/backups/wp-content/. wordpresto-wordpress:var/www/html/wp-content

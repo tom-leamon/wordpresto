@@ -1,0 +1,1 @@
+docker-compose up -p "wordpresto-wordpress" -d

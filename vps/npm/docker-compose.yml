@@ -1,0 +1,28 @@
+version: '3'
+services:
+  app:
+    container_name: wordpresto-nginx-proxy-manager
+    image: 'jc21/nginx-proxy-manager:latest'
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    environment:
+      DB_MYSQL_HOST: "db"
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: "npm"
+      DB_MYSQL_PASSWORD: "s!NOo5ml#WG7VofPHMoEJCr1Ka&HCF"
+      DB_MYSQL_NAME: "npm"
+    volumes:
+      - /home/admin/volumes/nginx/data:/data
+      - /home/admin/volumes/nginx/letsencrypt:/etc/letsencrypt
+  db:
+    container_name: wordpresto-nginx-proxy-manager-db
+    image: 'jc21/mariadb-aria:latest'
+    environment:
+      MYSQL_ROOT_PASSWORD: 's!NOo5ml#WG7VofPHMoEJCr1Ka&HCF'
+      MYSQL_DATABASE: 'npm'
+      MYSQL_USER: 'npm'
+      MYSQL_PASSWORD: 's!NOo5ml#WG7VofPHMoEJCr1Ka&HCF'
+    volumes:
+      - /home/admin/volumes/nginx/data/mysql:/var/lib/mysql
