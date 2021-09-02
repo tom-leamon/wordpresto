@@ -16,9 +16,9 @@ The fastest way to host Wordpress on a VPS and make it publicly accessible. Incl
 ## Motivation
 
 Running `scripts/start.sh` installs Docker and docker-compose, creates all necessary folders, then builds and starts the following applications using Docker:
-- Wordpress
-- Nginx Proxy Manager
-- Portainer
+- Wordpress [port 3070/8081]
+- Nginx Proxy Manager [port 80/81/443]
+- Portainer [port 9000]
 
 Each application runs in its own Docker stack using docker-compose. Each container's data is persisted using docker volume bind mounts. The `/home/administrator/backups` folder contains all backups.
 
