@@ -6,4 +6,5 @@ mkdir -p -- \
 /home/administrator/backups/nginx \
 /home/administrator/backups/portainer \
 /home/administrator/backups/wordpresto \
+/home/administrator/backups/temp
 
