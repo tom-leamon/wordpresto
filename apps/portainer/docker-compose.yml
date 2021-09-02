@@ -17,4 +17,4 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - /home/admin/volumes/portainer/portainer_data:/data
+      - /home/administrator/volumes/portainer/portainer_data:/data
