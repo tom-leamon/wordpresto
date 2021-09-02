@@ -35,7 +35,7 @@ The setup process consists of <b>BOTH</b> an initial automated setup script and 
 1. `cd /home/administrator` 
 2. `git clone https://github.com/tom-leamon/wordpresto.git`
 3. `cd wordpresto`
-4. `nano .env` and set unique, secure passwords.
+4. `nano ./apps/wordpress/.env` and `nano ./apps/nginx/.env` to set unique, secure passwords.
 5. `sudo sh setup.sh`
 6. Follow the manual steps specified below.
 
