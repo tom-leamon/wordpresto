@@ -5,7 +5,7 @@ services:
     container_name: wordpresto-wordpress-db
     image: mysql:latest
     volumes:
-      - ./db_data:/var/lib/mysql
+      - ${VOLUME}/db_data:/var/lib/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
@@ -21,7 +21,7 @@ services:
       - db
     image: wordpress:latest
     volumes:
-      - wp-content:/var/www/html/wp-content
+      - ${VOLUME}/wp-content:/var/www/html/wp-content
     ports:
       - "3070:80"
     restart: always
@@ -44,6 +44,3 @@ services:
     restart: always
     ports:
       - 8081:80
-
-volumes:
-  wp-content: {}

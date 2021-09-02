@@ -1,6 +1,8 @@
-cd /home/admin &&
+cd /home/administrator &&
 mkdir -p -- \
-/home/admin/wordpresto/backups/database \
-/home/admin/wordpresto/backups/wp-content \
-/home/admin/volumes/nginx \
-/home/admin/volumes/portainer
+/home/administrator/wordpresto/backups/database \
+/home/administrator/wordpresto/backups/wp-content \
+/home/administrator/volumes/nginx \
+/home/administrator/volumes/portainer \
+/home/administrator/volumes/wordpresto
+
