@@ -32,10 +32,12 @@ The setup process consists of <b>BOTH</b> an initial automated setup script and 
 
 ## Quickstart
 
-1. Clone this repository to your VM by running `git clone https://github.com/tom-leamon/wordpresto.git` in `/home/administrator` 
-2. Change the environment variables in `.env` to unique, secure passwords.
-3. Run `setup.sh` from the root directory of the repository `/home/administrator/wordpresto`
-4. Follow the manual steps specified below.
+1. `cd /home/administrator` 
+2. `git clone https://github.com/tom-leamon/wordpresto.git`
+3. `cd wordpresto`
+4. `nano .env` and set unique, secure passwords.
+5. `sudo sh setup.sh`
+6. Follow the manual steps specified below.
 
 ## Manual Steps
 
