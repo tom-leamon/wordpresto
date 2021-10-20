@@ -35,7 +35,7 @@ services:
     container_name: wordpresto-wordpress-db-phpmyadmin
     image: phpmyadmin/phpmyadmin
     links:
-      - db
+      - wordpress-db
     environment:
       PMA_HOST: db
       PMA_PORT: 3306
