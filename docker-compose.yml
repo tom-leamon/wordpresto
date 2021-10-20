@@ -1,0 +1,91 @@
+version: "3.9"
+    
+services: 
+  wordpress:
+    container_name: wordpresto-wordpress
+    depends_on:
+      - wordpress-db
+    image: wordpress:latest
+    volumes:
+      - /home/administrator/volumes/wordpresto/wp-content:/var/www/html/wp-content
+    ports:
+      - "3070:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_DB_NAME: wordpress
+
+  wordpress-db:
+    container_name: wordpresto-wordpress-db
+    image: mysql:latest
+    volumes:
+      - /home/administrator/volumes/wordpresto/db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "6033:3306"
+
+  wordpress-db-phpmyadmin:
+    container_name: wordpresto-wordpress-db-phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8081:80
+
+  nginx-proxy-manager:
+    container_name: wordpresto-nginx-proxy-manager
+    image: 'jc21/nginx-proxy-manager:latest'
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    environment:
+      DB_MYSQL_HOST: "db"
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: "npm"
+      DB_MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      DB_MYSQL_NAME: "npm"
+    volumes:
+      - /home/administrator/volumes/nginx/data:/data
+      - /home/administrator/volumes/nginx/letsencrypt:/etc/letsencrypt
+
+  nginx-proxy-manager-db:
+    container_name: wordpresto-nginx-proxy-manager-db
+    image: 'jc21/mariadb-aria:latest'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: 'npm'
+      MYSQL_USER: 'npm'
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - /home/administrator/volumes/nginx/data/mysql:/var/lib/mysql
+
+  portainer-agent:
+    restart: always
+    container_name: wordpresto-portainer-agent
+    image: portainer/agent
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+
+  portainer:
+    restart: always
+    container_name: wordpresto-portainer
+    image: portainer/portainer-ce
+    command: -H tcp://agent:9001 --tlsskipverify
+    ports:
+      - "9000:9000"
+    volumes:
+      - /home/administrator/volumes/portainer/portainer_data:/data

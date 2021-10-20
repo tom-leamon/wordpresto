@@ -1,5 +1,3 @@
-
-
 # wordpresto
 
 The fastest way to host Wordpress on a VPS and make it publicly accessible. Includes backup and restore scripts.
@@ -12,32 +10,31 @@ The fastest way to host Wordpress on a VPS and make it publicly accessible. Incl
 
 [Manual Steps](#manual-steps)
 
-
 ## Motivation
 
-Running `scripts/start.sh` installs Docker and docker-compose, creates all necessary folders, then builds and starts the following applications using Docker:
+Running `setup.sh` installs Docker and docker-compose, creates all necessary folders, then builds and starts the following applications using Docker:
 - Wordpress [port 3070/8081]
 - Nginx Proxy Manager [port 80/81/443]
 - Portainer [port 9000]
 
-Each application runs in its own Docker stack using docker-compose. Each container's data is persisted using docker volume bind mounts. The `/home/administrator/backups` folder contains all backups.
+Each application runs in a Docker stack using docker-compose. Each container's data is persisted using docker volume bind mounts. The `/home/administrator/backups` folder contains all backups.
 
 The setup process consists of <b>BOTH</b> an initial automated setup script and a series of manual steps.
 
 ## Prerequisites
 
-- Ubuntu VPS with at least 2GB of RAM and 20GB of storage
-- User named `administrator` with sudo privileges
--  `/home/administrator` directory
+- Ubuntu VPS with at least 1GB of RAM and 20GB of storage
+- User named `root` with sudo privileges
 
 ## Quickstart
 
-1. `cd /home/administrator` 
-2. `git clone https://github.com/tom-leamon/wordpresto.git`
-3. `cd wordpresto`
-4. `nano ./apps/wordpress/.env` and `nano ./apps/nginx/.env` to set unique, secure passwords.
-5. `sudo sh setup.sh`
-6. Follow the manual steps specified below.
+1. `sudo useradd -m -p $(openssl passwd -1 [NEW PASSWORD]) administrator`
+2. `cd /home/administrator`
+3. `git clone https://github.com/tom-leamon/wordpresto.git`
+4. `cd wordpresto`
+5. `nano .env` to set a unique, secure password for the Wordpress and Nginx Proxy Manager databases.
+6. `sudo sh setup.sh`
+7. Follow the manual steps specified below.
 
 ## Manual Steps
 
@@ -79,7 +76,7 @@ You can transfer the backup data from one environment to another. Run this comma
      
  3. Restore the database by running
 
-      ``sudo sh /home/administrator/wordpresto/apps/wordpress/restore/restore-db.sh``
+      ``sudo sh /home/administrator/wordpresto/scripts/restore/restore-db.sh``
 
  5. Copy upload backup tar file to
  
@@ -87,7 +84,7 @@ You can transfer the backup data from one environment to another. Run this comma
        
  6. Restore the uploads by running
 
-       ``sudo sh /home/administrator/wordpresto/apps/wordpress/restore/restore-wp-content.sh``
+       ``sudo sh /home/administrator/wordpresto/scripts/restore/restore-wp-content.sh``
 
 
 # Troubleshooting 
