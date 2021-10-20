@@ -24,7 +24,7 @@ The setup process consists of <b>BOTH</b> an initial automated setup script and 
 ## Prerequisites
 
 - Ubuntu 20.04 LTS server with at least 1GB of RAM and 20GB of storage
-- User named `root` with sudo privileges
+- `root` user
 
 ## Quickstart
 
