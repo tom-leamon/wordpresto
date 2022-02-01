@@ -62,11 +62,13 @@ The setup process consists of <b>BOTH</b> an initial automated setup script and 
 
 2. Change the default login email and password
 
-### Migrating backups between hosts
+Learn more about [Ngnix Proxy Manger](https://github.com/NginxProxyManager/nginx-proxy-manager).
+
+### Migrating Data Between Hosts
 
 You can transfer the backup data from one environment to another. 
 
- 1. [optional, experimental] Run this command on the host you want to copy data from, and specify the host IP address that you want to copy the backups to.
+ 1. [optional] Run this command on the host you want to copy data from, and specify the host IP address that you want to copy the backups to.
 
       ``sh /home/administrator/wordpresto/scripts/transfer-all-backups.sh [host ip address]``
 
@@ -89,23 +91,32 @@ You can transfer the backup data from one environment to another.
 
 ## Local Development
 
+You can develop your WordPress website locally before transfering it to the production server. 
+
+For Linux users, you can use the same non-local scripts that are used in production. If you are using Windows or MacOS, use the following scripts.
+
 ### Start the Containers
 
-For local development, only WordPress, the WordPress DB, and PHPMyAdmin containers are started.
+ 1. For local development, only WordPress, the WordPress DB, and PHPMyAdmin containers are started.
 
-`sh scripts/start_local.sh`
+      `sh scripts/start_local.sh`
 
 ### Backup Local WordPress Data and Database
 
-`sh scripts/backup/backup-db_local.sh`
+Locally, backups will be saved in to `./backups`
 
-`sh scripts/backup/backup-wp-content_local.sh`
+ 1. Backup the WordPress database
+ 
+      `sh scripts/backup/backup-db_local.sh`
 
-Backups will be saved in to `./backups`.
+ 2. Backup wp-content
+ 
+      `sh scripts/backup/backup-wp-content_local.sh`
+
 
 ### Restoring a Local Backup
 
-1. Copy database backup .sql file to 
+1. Copy the database backup .sql file to 
  
      ``./backups/wordpresto/database/wordpresto-wordpress-db_latest.sql``
      
