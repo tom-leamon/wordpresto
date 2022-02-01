@@ -10,6 +10,8 @@ The fastest way to host Wordpress on a VPS and make it publicly accessible. Incl
 
 [Manual Steps](#manual-steps)
 
+[Local Development](#local-development)
+
 ## Motivation
 
 Running `setup.sh` installs Docker and docker-compose, creates all necessary folders, then builds and starts the following applications using Docker:
