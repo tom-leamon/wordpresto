@@ -1,0 +1,45 @@
+version: "3.9"
+    
+services: 
+  wordpress:
+    container_name: wordpresto-wordpress
+    depends_on:
+      - wordpress-db
+    image: wordpress:latest
+    volumes:
+      - ./volumes/wordpresto/wp-content:/var/www/html/wp-content
+    ports:
+      - ${WORDPRESS_PORT}:80
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: wordpress-db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_DB_NAME: wordpress
+
+  wordpress-db:
+    container_name: wordpresto-wordpress-db
+    image: mysql:latest
+    volumes:
+      - ./volumes/wordpresto/db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - ${WORDPRESS_DB_PORT}:3306
+
+  wordpress-db-phpmyadmin:
+    container_name: wordpresto-wordpress-db-phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    links:
+      - wordpress-db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - ${WORDPRESS_PHPMYADMIN_PORT}:80

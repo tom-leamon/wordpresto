@@ -1,2 +1,5 @@
 *.zip
-backups
+backups/wordpresto/database/*
+backups/wordpresto/wp-content/*
+volumes/wordpresto/db_data/*
+volumes/wordpresto/wp-content/*
