@@ -9,7 +9,7 @@ services:
     volumes:
       - /home/administrator/volumes/wordpresto/wp-content:/var/www/html/wp-content
     ports:
-      - "3070:80"
+      - ${WORDPRESS_PORT}:80
     restart: always
     environment:
       WORDPRESS_DB_HOST: wordpress-db:3306
@@ -29,7 +29,7 @@ services:
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - "6033:3306"
+      - ${WORDPRESS_DB_PORT}:3306
 
   wordpress-db-phpmyadmin:
     container_name: wordpresto-wordpress-db-phpmyadmin
@@ -42,15 +42,15 @@ services:
       PMA_ARBITRARY: 1
     restart: always
     ports:
-      - 8081:80
+      - ${WORDPRESS_PHPMYADMIN_PORT}:80
 
   nginx-proxy-manager:
     container_name: wordpresto-nginx-proxy-manager
     image: 'jc21/nginx-proxy-manager:latest'
     ports:
-      - '80:80'
-      - '81:81'
-      - '443:443'
+      - 80:80
+      - ${NGINX_PROXY_MANAGER_PORT}:81
+      - 443:443
     environment:
       DB_MYSQL_HOST: "db"
       DB_MYSQL_PORT: 3306
@@ -86,6 +86,6 @@ services:
     image: portainer/portainer-ce
     command: -H tcp://agent:9001 --tlsskipverify
     ports:
-      - "9000:9000"
+      - ${PORTAINER_PORT}:9000
     volumes:
       - /home/administrator/volumes/portainer/portainer_data:/data
