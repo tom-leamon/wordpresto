@@ -52,7 +52,7 @@ services:
       - ${NGINX_PROXY_MANAGER_PORT}:81
       - 443:443
     environment:
-      DB_MYSQL_HOST: "db"
+      DB_MYSQL_HOST: "wordpresto-nginx-proxy-manager-db"
       DB_MYSQL_PORT: 3306
       DB_MYSQL_USER: "npm"
       DB_MYSQL_PASSWORD: ${MYSQL_PASSWORD}
