@@ -72,20 +72,15 @@ services:
     volumes:
       - /home/administrator/volumes/nginx/data/mysql:/var/lib/mysql
 
-  portainer-agent:
-    restart: always
-    container_name: wordpresto-portainer-agent
-    image: portainer/agent
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /var/lib/docker/volumes:/var/lib/docker/volumes
-
   portainer:
-    restart: always
     container_name: wordpresto-portainer
-    image: portainer/portainer-ce
-    command: -H tcp://agent:9001 --tlsskipverify
+    image: portainer/portainer-ce:latest
     ports:
       - ${PORTAINER_PORT}:9000
+    restart: always
+    security_opt:
+      - no-new-privileges:false
     volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - /home/administrator/volumes/portainer/portainer_data:/data
