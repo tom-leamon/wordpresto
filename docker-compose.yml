@@ -7,7 +7,7 @@ services:
       - wordpress-db
     image: wordpress:latest
     volumes:
-      - /home/administrator/volumes/wordpresto/wp-content:/var/www/html/wp-content
+      - /home/administrator/volumes/wordpresto/wp-content:/var/www/html/wp-content:rw
     ports:
       - ${WORDPRESS_PORT}:80
     restart: always

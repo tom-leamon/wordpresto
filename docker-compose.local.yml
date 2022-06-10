@@ -37,7 +37,7 @@ services:
     links:
       - wordpress-db
     environment:
-      PMA_HOST: db
+      PMA_HOST: wordpress-db
       PMA_PORT: 3306
       PMA_ARBITRARY: 1
     restart: always
